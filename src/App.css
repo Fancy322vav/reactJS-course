@@ -13,3 +13,9 @@
 .App-intro {
   font-size: large;
 }
+
+.card-size {
+  margin: 20px;
+  width: 20%;
+  height: 300px;
+}

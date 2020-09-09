@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import Card from "./Card/Card";
+import Card from "./Card";
 
 class App extends Component {
   render() {
@@ -9,7 +9,11 @@ class App extends Component {
         <header className="App-header">
           <h1 className="App-title">Welcome to React-Course</h1>
         </header>
-        <Card header="Card 1">Some random text</Card>
+        <div className="card-size">
+          <Card header="Card 1" className="card1">
+            Some random text
+          </Card>
+        </div>
       </div>
     );
   }
