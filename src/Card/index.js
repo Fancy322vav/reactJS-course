@@ -1,16 +1,15 @@
-import React from "react";
-import "./Card.css";
+import React, { useState } from "react";
+import "./index.css";
 
 const card = (props) => {
+  const [cardState, setCardState] = useState({ isChecked: false });
+
   const cardCheckedHandler = () => {
-    const card = document.getElementById("card");
-    card.className === "card"
-      ? (card.className = "card-checked")
-      : (card.className = "card");
+    setCardState({ isChecked: !cardState.isChecked });
   };
 
   return (
-    <div id="card" className="card">
+    <div className={cardState.isChecked ? "card-checked" : "card"}>
       <div className="card-header">
         {props.header}
         <input type="checkbox" onChange={cardCheckedHandler} />
