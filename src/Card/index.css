@@ -1,8 +1,11 @@
 .card {
-  margin: 20px;
-  width: 20%;
-  height: 300px;
   border: 2px solid #333;
+  height: inherit;
+}
+
+.card-checked {
+  border: 2px solid rgb(176, 142, 142);
+  height: inherit;
 }
 
 .card-header {
