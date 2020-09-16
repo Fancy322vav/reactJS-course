@@ -10,9 +10,7 @@ class App extends Component {
           <h1 className="App-title">Welcome to React-Course</h1>
         </header>
         <div className="card-size">
-          <Card header="Card 1" className="card1">
-            Some random text
-          </Card>
+          <Card header="Card 1">Some random text</Card>
         </div>
       </div>
     );

@@ -1,6 +1,7 @@
 .card {
   border: 2px solid #333;
   height: inherit;
+  word-wrap: break-word;
 }
 
 .card-checked {
@@ -9,11 +10,33 @@
 }
 
 .card-header {
+  margin-top: 5px;
   border-bottom: 2px solid rgb(79, 73, 73);
   text-align: center;
-  padding: 10px;
+  height: 40px;
+}
+
+.updated-header {
+  width: 70px;
+}
+
+.right {
+  float: right;
 }
 
 .card-text {
   padding: 5px;
+}
+
+.dn {
+  display: none;
+}
+
+input {
+  outline: 0;
+}
+
+p {
+  margin: 0;
+  padding: 0;
 }
