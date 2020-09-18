@@ -2,14 +2,18 @@ import React, { useState } from "react";
 import { BsPencil, BsCheck, BsX } from "react-icons/bs";
 import "./index.css";
 
-const card = (props) => {
+const card = () => {
   const [cardState, setCardState] = useState({
     isChecked: false,
     isEditMode: false,
-    cardHeaderMessage: props.header,
-    cardMainMessage: props.children,
-    updatedHeaderMessage: props.header,
-    updatedMainMessage: props.children,
+    cardData: {
+      header: "Card 1",
+      body: "Some random text",
+    },
+    tempCardData: {
+      header: "Card 1",
+      body: "Some random text",
+    },
   });
 
   const cardCheckedHandler = () => {
@@ -19,17 +23,13 @@ const card = (props) => {
     });
   };
 
-  const headerChangedHandler = (event) => {
+  const inputChangedHandler = (event, property) => {
     setCardState({
       ...cardState,
-      updatedHeaderMessage: event.target.value,
-    });
-  };
-
-  const mainMessgeChangedHandler = (event) => {
-    setCardState({
-      ...cardState,
-      updatedMainMessage: event.target.value,
+      tempCardData: {
+        ...cardState.tempCardData,
+        [property]: event.target.value,
+      },
     });
   };
 
@@ -39,15 +39,15 @@ const card = (props) => {
       isChecked: false,
       isEditMode: true,
     });
-    document.getElementById("check").checked = false;
   };
 
   const saveChanges = () => {
     setCardState({
       ...cardState,
       isEditMode: false,
-      cardHeaderMessage: cardState.updatedHeaderMessage,
-      cardMainMessage: cardState.updatedMainMessage,
+      cardData: {
+        ...cardState.tempCardData,
+      },
     });
   };
 
@@ -55,52 +55,49 @@ const card = (props) => {
     setCardState({
       ...cardState,
       isEditMode: false,
-      updatedHeaderMessage: cardState.cardHeaderMessage,
-      cardMainMessage: cardState.cardMainMessage,
+      tempCardData: {
+        ...cardState.cardData,
+      },
     });
   };
 
   return (
     <div className={cardState.isChecked ? "card-checked" : "card"}>
       <div className="card-header">
-        <p className={cardState.isEditMode ? "dn" : ""}>
-          {cardState.cardHeaderMessage}
-        </p>
-        <BsPencil
-          className={cardState.isEditMode ? "dn" : ""}
-          onClick={editModeEnabled}
-        />
-        <input
-          id="check"
-          type="checkbox"
-          className={cardState.isEditMode ? "dn" : ""}
-          onChange={cardCheckedHandler}
-        />
-        <input
-          type="text"
-          className={cardState.isEditMode ? "updated-header" : "dn"}
-          value={cardState.updatedHeaderMessage}
-          onChange={headerChangedHandler}
-        />
-        <BsCheck
-          className={cardState.isEditMode ? "right" : "dn"}
-          onClick={saveChanges}
-        />
-        <BsX
-          className={cardState.isEditMode ? "right" : "dn"}
-          onClick={cancelChanges}
-        />
+        {!cardState.isEditMode ? (
+          <div>
+            <p>{cardState.cardData.header}</p>
+            <BsPencil onClick={editModeEnabled} />
+            <input
+              id="check"
+              type="checkbox"
+              onChange={cardCheckedHandler}
+              checked={cardState.isChecked}
+            />
+          </div>
+        ) : (
+          <div>
+            <input
+              type="text"
+              className="updated-header"
+              value={cardState.tempCardData.header}
+              onChange={(event) => inputChangedHandler(event, "header")}
+            />
+            <BsCheck className="right" onClick={saveChanges} />
+            <BsX className="right" onClick={cancelChanges} />
+          </div>
+        )}
       </div>
       <div className="card-text">
-        <p className={cardState.isEditMode ? "dn" : ""}>
-          {cardState.cardMainMessage}
-        </p>
-        <input
-          type="text"
-          className={cardState.isEditMode ? "" : "dn"}
-          value={cardState.updatedMainMessage}
-          onChange={mainMessgeChangedHandler}
-        />
+        {!cardState.isEditMode ? (
+          <p>{cardState.cardData.body}</p>
+        ) : (
+          <input
+            type="text"
+            value={cardState.tempCardData.body}
+            onChange={(event) => inputChangedHandler(event, "body")}
+          />
+        )}
       </div>
     </div>
   );
