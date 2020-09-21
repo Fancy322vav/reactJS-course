@@ -19,12 +19,3 @@
   width: 20%;
   height: 300px;
 }
-
-.view-mode {
-  margin: 10px 0px 0px 20px;
-}
-
-.card-list {
-  display: flex;
-  flex-wrap: wrap;
-}

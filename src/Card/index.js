@@ -1,24 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { BsPencil, BsCheck, BsX } from "react-icons/bs";
 import "./index.css";
 
-const card = (props) => {
+const card = () => {
   const [cardState, setCardState] = useState({
     isChecked: false,
     isEditMode: false,
     cardData: {
-      header: props.head,
-      body: props.body,
+      header: "Card 1",
+      body: "Some random text",
     },
     tempCardData: {
-      header: props.head,
-      body: props.body,
+      header: "Card 1",
+      body: "Some random text",
     },
   });
-
-  useEffect(() => {
-    cancelChanges();
-  }, [props.viewMode]);
 
   const cardCheckedHandler = () => {
     setCardState({
@@ -65,25 +61,19 @@ const card = (props) => {
     });
   };
 
-  let pencil = null;
-  if (!props.viewMode) {
-    pencil = <BsPencil className="right" onClick={editModeEnabled} />;
-  }
-
   return (
     <div className={cardState.isChecked ? "card-checked" : "card"}>
       <div className="card-header">
         {!cardState.isEditMode ? (
           <div>
-            <p className="header-text">{cardState.cardData.header}</p>
+            <p>{cardState.cardData.header}</p>
+            <BsPencil onClick={editModeEnabled} />
             <input
-              className="right"
               id="check"
               type="checkbox"
               onChange={cardCheckedHandler}
               checked={cardState.isChecked}
             />
-            {pencil}
           </div>
         ) : (
           <div>
@@ -93,8 +83,8 @@ const card = (props) => {
               value={cardState.tempCardData.header}
               onChange={(event) => inputChangedHandler(event, "header")}
             />
-            <BsX className="right" onClick={cancelChanges} />
             <BsCheck className="right" onClick={saveChanges} />
+            <BsX className="right" onClick={cancelChanges} />
           </div>
         )}
       </div>
