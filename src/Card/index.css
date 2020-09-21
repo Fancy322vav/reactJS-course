@@ -16,6 +16,11 @@
   height: 40px;
 }
 
+.header-text {
+  text-align: center;
+  display: inline-block;
+}
+
 .updated-header {
   width: 70px;
 }
