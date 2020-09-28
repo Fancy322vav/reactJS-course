@@ -1,0 +1,30 @@
+.card-size {
+  margin: 20px;
+  width: 20%;
+  height: 300px;
+}
+
+.card-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card {
+  border: 2px solid #333;
+  height: inherit;
+  word-wrap: break-word;
+}
+
+.card-checked {
+  border: 2px solid rgb(176, 142, 142);
+  height: inherit;
+}
+
+input {
+  outline: 0;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}

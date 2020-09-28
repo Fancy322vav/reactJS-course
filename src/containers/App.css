@@ -1,0 +1,38 @@
+.App-header {
+  background-color: #222;
+  height: 50px;
+  padding: 10px;
+  color: white;
+}
+
+.App-title {
+  text-align: center;
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+.container {
+  display: flex;
+}
+
+.view-mode {
+  margin: 10px 0px 0px 20px;
+}
+
+.delete {
+  height: 40px;
+  background-color: red;
+  margin-top: 10px;
+  margin-left: 20px;
+  cursor: pointer;
+  outline: 0;
+  margin-left: auto;
+  margin-right: 10px;
+}
+
+.delete:hover {
+  background-color: rgb(201, 54, 54);
+}
