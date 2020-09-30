@@ -7,7 +7,7 @@ const cardBody = (props) => {
       {!props.editMode ? (
         <p>{props.cardBody}</p>
       ) : (
-        <input type="text" value={props.tempBody} onChange={props.changed} />
+        <input type="text" value={props.tempBody} onChange={props.onChange} />
       )}
     </div>
   );

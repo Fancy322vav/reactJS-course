@@ -4,12 +4,12 @@ import "./index.css";
 
 const cardHeader = (props) => {
   useEffect(() => {
-    props.cancel();
+    props.onCancel();
   }, [props.view]);
 
   let pencil = null;
   if (!props.view) {
-    pencil = <BsPencil className="right" onClick={props.edit} />;
+    pencil = <BsPencil className="right" onClick={props.onEdit} />;
   }
 
   return (
@@ -21,7 +21,7 @@ const cardHeader = (props) => {
             className="right"
             id="check"
             type="checkbox"
-            onChange={props.checkToggle}
+            onChange={props.onCheck}
             checked={props.checked}
           />
           {pencil}
@@ -32,10 +32,10 @@ const cardHeader = (props) => {
             type="text"
             className="updated-header"
             value={props.tempHead}
-            onChange={props.changed}
+            onChange={props.onChange}
           />
-          <BsX className="right" onClick={props.cancel} />
-          <BsCheck className="right" onClick={props.save} />
+          <BsX className="right" onClick={props.onCancel} />
+          <BsCheck className="right" onClick={props.onSave} />
         </div>
       )}
     </div>

@@ -1,33 +1,20 @@
 import React from "react";
-import CardHeader from "../Card/CardHeader";
-import CardBody from "../Card/CardBody";
+import Card from "../Card";
 import "./index.css";
 
 const cardList = (props) => {
-  const card = props.cards.map((card, index) => {
+  const card = props.cards.map((card) => {
     return (
-      <div className="card-size" key={index}>
-        <div className={card.isChecked ? "card-checked" : "card"}>
-          <CardHeader
-            editMode={card.isEditMode}
-            cardHead={card.head}
-            checkToggle={() => props.checkToggle(index)}
-            checked={card.isChecked}
-            tempHead={props.tempCards[index].head}
-            changed={(event) => props.changed(event, "head", index)}
-            cancel={() => props.cancel(index)}
-            save={() => props.save(index)}
-            edit={() => props.edit(index)}
-            view={props.isOnlyView}
-          />
-          <CardBody
-            editMode={card.isEditMode}
-            cardBody={card.body}
-            tempBody={props.tempCards[index].body}
-            changed={(event) => props.changed(event, "body", index)}
-          />
-        </div>
-      </div>
+      <Card
+        key={card.id}
+        card={card}
+        editMode={card.isEditMode}
+        isOnlyView={props.isOnlyView}
+        onCheck={() => props.onCheck(card.id)}
+        onEdit={() => props.onEdit(card.id)}
+        onCancel={props.onCancel}
+        onSave={props.onSave}
+      />
     );
   });
   return <div className="card-list">{card}</div>;
