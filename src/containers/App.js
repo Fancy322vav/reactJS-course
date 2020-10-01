@@ -1,7 +1,9 @@
 import React, { Component } from "react";
+import { v4 as uuidv4 } from "uuid";
 import "./App.css";
 import styled from "styled-components";
 import CardList from "../components/CardList";
+import NewCard from "./NewCard";
 
 const StyledCheckbox = styled.input`
   cursor: pointer;
@@ -126,7 +128,17 @@ class App extends Component {
     this.setState({ cards: updatedCards });
   };
 
+  addCardHandler = (newCard) => {
+    const card = { ...newCard };
+    card.id = uuidv4();
+    this.setState({ cards: [...this.state.cards, card] });
+  };
+
   render() {
+    let newCard = <NewCard onAdd={this.addCardHandler} />;
+    if (this.state.isOnlyViewMode) {
+      newCard = null;
+    }
     return (
       <div>
         <header className="App-header">
@@ -148,6 +160,7 @@ class App extends Component {
             Удалить выбранные карточки
           </button>
         </div>
+        {newCard}
         <CardList
           cards={this.state.cards}
           isOnlyView={this.state.isOnlyViewMode}
