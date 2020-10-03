@@ -1,25 +1,21 @@
 .add-card {
   text-align: center;
-  width: 20%;
   height: 300px;
   display: flex;
   flex-direction: column;
-  margin-top: 10px;
   border: 1px solid black;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
-  margin-left: 20px;
   border-radius: 5%;
 }
 
 .add-card-item {
   font-weight: bold;
-  padding-bottom: 40px;
+  padding-bottom: 30px;
 }
 
 .add-item {
-  margin-top: 20px;
+  margin-top: 15px;
 }
 
 .add-item input {
@@ -27,18 +23,7 @@
   width: 100%;
 }
 
-.add-card button {
-  margin-top: 10px;
-  height: 30px;
-  width: 80px;
-  cursor: pointer;
-  outline: none;
-  border: none;
-  border-radius: 5%;
-  background-color: rgb(47, 174, 47);
-}
-
-.add-card button:hover {
-  background-color: rgb(32, 120, 32);
-  font-weight: bold;
+.buttons {
+  display: flex;
+  margin-top: 20px;
 }

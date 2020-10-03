@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import BtnSuccess from "../../components/UI/Buttons/BtnSuccess";
+import BtnDanger from "../../components/UI/Buttons/BtnDanger";
 import "./index.css";
 
 class NewCard extends Component {
@@ -38,9 +40,17 @@ class NewCard extends Component {
             onChange={(event) => this.inputChangedHandler(event, "body")}
           />
         </div>
-        <button onClick={() => this.props.onAdd(this.state.card)}>
-          Добавить
-        </button>
+        <div className="buttons">
+          <BtnSuccess
+            size={{ height: "30px" }}
+            onSuccess={() => this.props.onAdd(this.state.card)}
+          >
+            Добавить
+          </BtnSuccess>
+          <BtnDanger size={{ height: "30px" }} onDanger={this.props.onClose}>
+            Завершить
+          </BtnDanger>
+        </div>
       </div>
     );
   }

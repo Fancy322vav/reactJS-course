@@ -1,0 +1,12 @@
+.Success {
+  cursor: pointer;
+  outline: none;
+  border: none;
+  border-radius: 10%;
+  margin-left: 5px;
+  background-color: rgb(47, 174, 47);
+}
+
+.Success:hover {
+  background-color: rgb(32, 120, 32);
+}
