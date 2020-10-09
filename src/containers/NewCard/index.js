@@ -1,59 +1,57 @@
-import React, { Component } from "react";
+import React, { useState, useContext } from "react";
 import BtnSuccess from "../../components/UI/Buttons/BtnSuccess";
 import BtnDanger from "../../components/UI/Buttons/BtnDanger";
+import { CardContext } from "../../context/CardContext";
 import "./index.css";
 
-class NewCard extends Component {
-  state = {
-    card: {
-      id: "",
-      head: "",
-      body: "",
-      isChecked: false,
-      isEditMode: false,
-    },
-  };
+const newCard = (props) => {
+  const [card, setCard] = useState({
+    id: "",
+    head: "",
+    body: "",
+    isChecked: false,
+    isEditMode: false,
+  });
+  const { addCardHandler } = useContext(CardContext);
 
-  inputChangedHandler = (event, property) => {
-    const newCard = { ...this.state.card };
+  const inputChangedHandler = (event, property) => {
+    const newCard = { ...card };
     newCard[property] = event.target.value;
-    this.setState({ card: newCard });
+    setCard(newCard);
   };
 
-  render() {
-    return (
-      <div className="add-card">
-        <p className="add-card-item">Добавить карточку</p>
-        <div className="add-item">
-          <p>Заголовок карточки</p>
-          <input
-            type="text"
-            placeholder="Введите заголовок"
-            onChange={(event) => this.inputChangedHandler(event, "head")}
-          />
-        </div>
-        <div className="add-item">
-          <p>Текст карточки</p>
-          <input
-            type="text"
-            placeholder="Введите текст"
-            onChange={(event) => this.inputChangedHandler(event, "body")}
-          />
-        </div>
-        <div className="buttons">
-          <BtnSuccess
-            size={{ height: "30px" }}
-            onSuccess={() => this.props.onAdd(this.state.card)}
-          >
-            Добавить
-          </BtnSuccess>
-          <BtnDanger size={{ height: "30px" }} onDanger={this.props.onClose}>
-            Завершить
-          </BtnDanger>
-        </div>
+  return (
+    <div className="add-card">
+      <p className="add-card-item">Добавить карточку</p>
+      <div className="add-item">
+        <p>Заголовок карточки</p>
+        <input
+          type="text"
+          placeholder="Введите заголовок"
+          onChange={(event) => inputChangedHandler(event, "head")}
+        />
       </div>
-    );
-  }
-}
+      <div className="add-item">
+        <p>Текст карточки</p>
+        <input
+          type="text"
+          placeholder="Введите текст"
+          onChange={(event) => inputChangedHandler(event, "body")}
+        />
+      </div>
+      <div className="buttons">
+        <BtnSuccess
+          size={{ height: "30px" }}
+          onSuccess={() => addCardHandler(card)}
+        >
+          Добавить
+        </BtnSuccess>
+        <BtnDanger size={{ height: "30px" }} onDanger={props.onClose}>
+          Завершить
+        </BtnDanger>
+      </div>
+    </div>
+  );
+};
 
-export default NewCard;
+export default newCard;

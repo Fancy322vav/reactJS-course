@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import CardHeader from "./CardHeader";
 import CardBody from "./CardBody";
 import withLoadingDelay from "../../hoc/withLoadingDelay";
-import Auxiliary from "../../hoc/Auxiliary";
+import { CardContext } from "../../context/CardContext";
 import "./index.css";
 
 const card = (props) => {
+  const { saveChanges, cancelChanges } = useContext(CardContext);
+
   const [cardTempState, setCardTempState] = useState({
     tempCards: {},
   });
@@ -21,19 +23,18 @@ const card = (props) => {
   };
 
   return (
-    <Auxiliary>
+    <React.Fragment>
       <div className={props.card.isChecked ? "card-checked" : "card"}>
         <CardHeader
+          id={props.card.id}
           editMode={props.editMode}
           checked={props.isChecked}
           cardHead={props.card.head}
           tempHead={cardTempState.tempCards.head}
           view={props.isOnlyView}
-          onCheck={props.onCheck}
           onChange={(event) => inputChangedHandler(event, "head")}
-          onCancel={() => props.onCancel(props.card.id)}
-          onSave={() => props.onSave(props.card.id, cardTempState.tempCards)}
-          onEdit={props.onEdit}
+          onSave={() => saveChanges(props.card.id, cardTempState.tempCards)}
+          onCancel={() => cancelChanges(props.card.id)}
         />
         <CardBody
           editMode={props.editMode}
@@ -42,7 +43,7 @@ const card = (props) => {
           onChange={(event) => inputChangedHandler(event, "body")}
         />
       </div>
-    </Auxiliary>
+    </React.Fragment>
   );
 };
 
