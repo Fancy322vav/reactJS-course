@@ -14,6 +14,10 @@ const card = (props) => {
   });
 
   useEffect(() => {
+    console.log(props.card.isChecked);
+  }, []);
+
+  useEffect(() => {
     setCardTempState({ tempCards: props.card });
   }, [props.editMode]);
 
@@ -27,21 +31,21 @@ const card = (props) => {
     <Auxiliary>
       <div className={props.card.isChecked ? "card-checked" : "card"}>
         <CardHeader
-          id={props.card.id}
+          id={props.id}
           editMode={props.editMode}
           checked={props.isChecked}
-          cardHead={props.card.head}
-          tempHead={cardTempState.tempCards.head}
+          cardHead={props.card.Name}
+          tempHead={cardTempState.tempCards.Name}
           view={props.isOnlyView}
-          onChange={(event) => inputChangedHandler(event, "head")}
-          onSave={() => saveChanges(props.card.id, cardTempState.tempCards)}
-          onCancel={() => cancelChanges(props.card.id)}
+          onChange={(event) => inputChangedHandler(event, "Name")}
+          onSave={() => saveChanges(props.id, cardTempState.tempCards)}
+          onCancel={() => cancelChanges(props.id)}
         />
         <CardBody
           editMode={props.editMode}
-          cardBody={props.card.body}
-          tempBody={cardTempState.tempCards.body}
-          onChange={(event) => inputChangedHandler(event, "body")}
+          cardBody={props.card.About}
+          tempBody={cardTempState.tempCards.About}
+          onChange={(event) => inputChangedHandler(event, "About")}
         />
       </div>
     </Auxiliary>

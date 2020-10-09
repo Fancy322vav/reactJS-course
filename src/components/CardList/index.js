@@ -8,8 +8,9 @@ const cardList = (props) => {
   const card = cards.map((card) => {
     return (
       <Card
-        key={card.id}
+        key={card.Number}
         card={card}
+        id={card.Number}
         editMode={card.isEditMode}
         isOnlyView={props.isOnlyView}
       />
