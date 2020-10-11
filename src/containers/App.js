@@ -4,9 +4,8 @@ import "./App.css";
 import CardList from "../components/CardList";
 import NewCard from "./NewCard";
 import Modal from "../components/UI/Modal";
-import CardContextProvider from "../context/CardContext";
 import HeaderButtons from "../components/Header/HeaderButtons";
-import Header from "../components/Header";
+import CardsCounter from "../components/UI/CardsCounter";
 
 const StyledCheckbox = styled.input`
   cursor: pointer;
@@ -46,27 +45,25 @@ class App extends Component {
       newCard = null;
     }
     return (
-      <CardContextProvider>
-        <div>
-          <Header />
-          <div className="container">
-            <div className="view-mode">
-              <p>Только просмотр</p>
-              <StyledCheckbox
-                type="checkbox"
-                onChange={this.onlyViewModeToggle}
-              />
-            </div>
-            <HeaderButtons
-              isOnlyView={this.state.isOnlyViewMode}
-              viewModeToggle={this.state.onlyViewModeToggle}
-              onShow={this.showAddingCardHandler}
+      <div>
+        <CardsCounter />
+        <div className="container">
+          <div className="view-mode">
+            <p>Только просмотр</p>
+            <StyledCheckbox
+              type="checkbox"
+              onChange={this.onlyViewModeToggle}
             />
           </div>
-          {newCard}
-          <CardList isOnlyView={this.state.isOnlyViewMode} />
+          <HeaderButtons
+            isOnlyView={this.state.isOnlyViewMode}
+            viewModeToggle={this.state.onlyViewModeToggle}
+            onShow={this.showAddingCardHandler}
+          />
         </div>
-      </CardContextProvider>
+        {newCard}
+        <CardList isOnlyView={this.state.isOnlyViewMode} />
+      </div>
     );
   }
 }

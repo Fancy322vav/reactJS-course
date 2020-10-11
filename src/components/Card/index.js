@@ -14,10 +14,6 @@ const card = (props) => {
   });
 
   useEffect(() => {
-    console.log(props.card.isChecked);
-  }, []);
-
-  useEffect(() => {
     setCardTempState({ tempCards: props.card });
   }, [props.editMode]);
 
