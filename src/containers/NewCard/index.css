@@ -1,0 +1,29 @@
+.add-card {
+  text-align: center;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5%;
+}
+
+.add-card-item {
+  font-weight: bold;
+  padding-bottom: 30px;
+}
+
+.add-item {
+  margin-top: 15px;
+}
+
+.add-item input {
+  margin-top: 5px;
+  width: 100%;
+}
+
+.buttons {
+  display: flex;
+  margin-top: 20px;
+}
