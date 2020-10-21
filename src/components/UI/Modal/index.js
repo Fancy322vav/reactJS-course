@@ -1,10 +1,9 @@
 import React from "react";
-import Auxiliary from "../../../hoc/Auxiliary";
 import Backdrop from "../Backdrop";
 import "./index.css";
 
 const modal = (props) => (
-  <Auxiliary>
+  <React.Fragment>
     <Backdrop show={props.show} onClose={props.onClose} />
     <div
       className="Modal"
@@ -15,7 +14,7 @@ const modal = (props) => (
     >
       {props.children}
     </div>
-  </Auxiliary>
+  </React.Fragment>
 );
 
 export default modal;
