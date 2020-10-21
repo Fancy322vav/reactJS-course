@@ -1,15 +1,21 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { BsPencil, BsCheck, BsX } from "react-icons/bs";
+import PropTypes from "prop-types";
+import { CardContext } from "../../../context/CardContext";
 import "./index.css";
 
 const cardHeader = (props) => {
+  const { cardCheckedHandler, editModeEnabled } = useContext(CardContext);
+
   useEffect(() => {
     props.onCancel();
   }, [props.view]);
 
   let pencil = null;
   if (!props.view) {
-    pencil = <BsPencil className="right" onClick={props.onEdit} />;
+    pencil = (
+      <BsPencil className="right" onClick={() => editModeEnabled(props.id)} />
+    );
   }
 
   return (
@@ -21,7 +27,7 @@ const cardHeader = (props) => {
             className="right"
             id="check"
             type="checkbox"
-            onChange={props.onCheck}
+            onChange={() => cardCheckedHandler(props.id)}
             checked={props.checked}
           />
           {pencil}
@@ -40,6 +46,18 @@ const cardHeader = (props) => {
       )}
     </div>
   );
+};
+
+cardHeader.propTypes = {
+  view: PropTypes.bool,
+  cardHead: PropTypes.string,
+  editMode: PropTypes.bool,
+  id: PropTypes.string,
+  checked: PropTypes.bool,
+  tempHead: PropTypes.string,
+  onChange: PropTypes.func,
+  onCancel: PropTypes.func,
+  onSave: PropTypes.func,
 };
 
 export default cardHeader;
