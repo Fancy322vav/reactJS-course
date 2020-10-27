@@ -1,14 +1,25 @@
-import React, { useContext } from "react";
-import { CardContext } from "../../context/CardContext";
+import React from "react";
+import { NavLink } from "react-router-dom";
+import "./index.css";
 
 const header = () => {
-  const { showNumberOfCards } = useContext(CardContext);
   return (
-    <header>
-      <h3>
-        Количество карточек:{" "}
-        <span className="badge badge-secondary">{showNumberOfCards()}</span>
-      </h3>
+    <header className="header">
+      <h2>Cards Manager</h2>
+      <nav>
+        <ul>
+          <li>
+            <NavLink to="/" exact activeClassName="active">
+              Sign In
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/cards" activeClassName="active">
+              Home
+            </NavLink>
+          </li>
+        </ul>
+      </nav>
     </header>
   );
 };

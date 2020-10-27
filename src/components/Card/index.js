@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from "react";
 import CardHeader from "./CardHeader";
 import CardBody from "./CardBody";
 import withLoadingDelay from "../../hoc/withLoadingDelay";
-import Auxiliary from "../../hoc/Auxiliary";
 import { CardContext } from "../../context/CardContext";
 import "./index.css";
 
@@ -12,10 +11,6 @@ const card = (props) => {
   const [cardTempState, setCardTempState] = useState({
     tempCards: {},
   });
-
-  useEffect(() => {
-    console.log(props.card.isChecked);
-  }, []);
 
   useEffect(() => {
     setCardTempState({ tempCards: props.card });
@@ -28,7 +23,7 @@ const card = (props) => {
   };
 
   return (
-    <Auxiliary>
+    <React.Fragment>
       <div className={props.card.isChecked ? "card-checked" : "card"}>
         <CardHeader
           id={props.id}
@@ -48,7 +43,7 @@ const card = (props) => {
           onChange={(event) => inputChangedHandler(event, "About")}
         />
       </div>
-    </Auxiliary>
+    </React.Fragment>
   );
 };
 
