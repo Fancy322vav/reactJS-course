@@ -9,12 +9,12 @@ const header = () => {
       <nav>
         <ul>
           <li>
-            <NavLink to="/" exact activeClassName="active">
+            <NavLink to="/signin" activeClassName="active">
               Sign In
             </NavLink>
           </li>
           <li>
-            <NavLink to="/cards" activeClassName="active">
+            <NavLink to="/" exact activeClassName="active">
               Home
             </NavLink>
           </li>
