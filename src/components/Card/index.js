@@ -1,45 +1,53 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import CardHeader from "./CardHeader";
 import CardBody from "./CardBody";
 import withLoadingDelay from "../../hoc/withLoadingDelay";
-import { CardContext } from "../../context/CardContext";
+import { connect } from "react-redux";
+import * as actions from "../../redux/actions/actions";
 import "./index.css";
 
 const card = (props) => {
-  const { saveChanges, cancelChanges } = useContext(CardContext);
-
-  const [cardTempState, setCardTempState] = useState({
-    tempCards: {},
-  });
+  const [cardTempState, setCardTempState] = useState({});
 
   useEffect(() => {
-    setCardTempState({ tempCards: props.card });
+    setCardTempState(props.card);
   }, [props.editMode]);
 
   const inputChangedHandler = (event, property) => {
-    const updatedTempCard = { ...cardTempState.tempCards };
+    const updatedTempCard = { ...cardTempState };
     updatedTempCard[property] = event.target.value;
-    setCardTempState({ tempCards: updatedTempCard });
+    setCardTempState(updatedTempCard);
+  };
+
+  const redirectToCardIdPage = () => {
+    if (!props.editMode) {
+      props.history.push("/card/:" + props.id);
+    }
   };
 
   return (
     <React.Fragment>
-      <div className={props.card.isChecked ? "card-checked" : "card"}>
+      <div
+        onDoubleClick={redirectToCardIdPage}
+        className={props.card.isChecked ? "card-checked" : "card"}
+      >
         <CardHeader
           id={props.id}
           editMode={props.editMode}
           checked={props.isChecked}
           cardHead={props.card.Name}
-          tempHead={cardTempState.tempCards.Name}
+          tempHead={cardTempState.Name}
           view={props.isOnlyView}
           onChange={(event) => inputChangedHandler(event, "Name")}
-          onSave={() => saveChanges(props.id, cardTempState.tempCards)}
-          onCancel={() => cancelChanges(props.id)}
+          onSave={() =>
+            props.onSaveChanges(props.cards, props.id, cardTempState)
+          }
+          onCancel={() => props.onCancelChanges(props.cards, props.id)}
         />
         <CardBody
           editMode={props.editMode}
           cardBody={props.card.About}
-          tempBody={cardTempState.tempCards.About}
+          tempBody={cardTempState.About}
           onChange={(event) => inputChangedHandler(event, "About")}
         />
       </div>
@@ -47,4 +55,21 @@ const card = (props) => {
   );
 };
 
-export default withLoadingDelay(card, "card-size");
+const mapStateToProps = (state) => {
+  return {
+    cards: state.cards,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSaveChanges: (cards, id, updatedTempCard) =>
+      dispatch(actions.saveChanges(cards, id, updatedTempCard)),
+    onCancelChanges: (cards, id) => dispatch(actions.cancelChanges(cards, id)),
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withLoadingDelay(card, "card-size"));

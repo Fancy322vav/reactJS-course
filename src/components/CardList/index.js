@@ -1,11 +1,9 @@
-import React, { useContext } from "react";
+import React from "react";
 import Card from "../Card";
-import { CardContext } from "../../context/CardContext";
 import "./index.css";
 
 const cardList = (props) => {
-  const { cards } = useContext(CardContext);
-  const card = cards.map((card) => {
+  const card = props.cards.map((card) => {
     return (
       <Card
         key={card.Number}
@@ -13,6 +11,7 @@ const cardList = (props) => {
         id={card.Number}
         editMode={card.isEditMode}
         isOnlyView={props.isOnlyView}
+        history={props.history}
       />
     );
   });

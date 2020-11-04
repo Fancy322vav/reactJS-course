@@ -1,12 +1,11 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect } from "react";
 import { BsPencil, BsCheck, BsX } from "react-icons/bs";
 import PropTypes from "prop-types";
-import { CardContext } from "../../../context/CardContext";
+import { connect } from "react-redux";
+import * as actions from "../../../redux/actions/actions";
 import "./index.css";
 
 const cardHeader = (props) => {
-  const { cardCheckedHandler, editModeEnabled } = useContext(CardContext);
-
   useEffect(() => {
     props.onCancel();
   }, [props.view]);
@@ -14,7 +13,10 @@ const cardHeader = (props) => {
   let pencil = null;
   if (!props.view) {
     pencil = (
-      <BsPencil className="right" onClick={() => editModeEnabled(props.id)} />
+      <BsPencil
+        className="right"
+        onClick={() => props.onEditModeEnabled(props.cards, props.id)}
+      />
     );
   }
 
@@ -27,8 +29,8 @@ const cardHeader = (props) => {
             className="right"
             id="check"
             type="checkbox"
-            onChange={() => cardCheckedHandler(props.id)}
             checked={props.checked}
+            onClick={() => props.onCardCheckedHandler(props.cards, props.id)}
           />
           {pencil}
         </div>
@@ -60,4 +62,19 @@ cardHeader.propTypes = {
   onSave: PropTypes.func,
 };
 
-export default cardHeader;
+const mapStateToProps = (state) => {
+  return {
+    cards: state.cards,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onCardCheckedHandler: (cards, id) =>
+      dispatch(actions.cardCheckedHandler(cards, id)),
+    onEditModeEnabled: (cards, id) =>
+      dispatch(actions.editModeEnabled(cards, id)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(cardHeader);
