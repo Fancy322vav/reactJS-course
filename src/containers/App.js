@@ -19,10 +19,6 @@ class App extends Component {
     showAddingCard: false,
   };
 
-  componentDidMount() {
-    this.props.onInitCards();
-  }
-
   onlyViewModeToggle = () => {
     this.setState({ isOnlyViewMode: !this.state.isOnlyViewMode });
   };
@@ -76,7 +72,6 @@ class App extends Component {
         <CardList
           isOnlyView={this.state.isOnlyViewMode}
           cards={this.props.cards}
-          history={this.props.history}
         />
       </div>
     );
@@ -91,7 +86,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onInitCards: () => dispatch(actions.initCards()),
     onDeleteCardsHandler: (cards) =>
       dispatch(actions.deleteCardsHandler(cards)),
     onAddCardHandler: (cards, newCard) =>

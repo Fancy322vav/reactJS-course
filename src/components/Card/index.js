@@ -2,12 +2,18 @@ import React, { useState, useEffect } from "react";
 import CardHeader from "./CardHeader";
 import CardBody from "./CardBody";
 import withLoadingDelay from "../../hoc/withLoadingDelay";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import * as actions from "../../redux/actions/actions";
 import "./index.css";
+import { useHistory } from "react-router-dom";
 
 const card = (props) => {
   const [cardTempState, setCardTempState] = useState({});
+
+  const history = useHistory();
+
+  const dispatch = useDispatch();
+  const cards = useSelector((state) => state.cards);
 
   useEffect(() => {
     setCardTempState(props.card);
@@ -20,8 +26,8 @@ const card = (props) => {
   };
 
   const redirectToCardIdPage = () => {
-    if (!props.editMode) {
-      props.history.push("/card/:" + props.id);
+    if (!props.editMode && !history.location.pathname.includes("/card/:")) {
+      history.push("/card/:" + props.id);
     }
   };
 
@@ -40,9 +46,9 @@ const card = (props) => {
           view={props.isOnlyView}
           onChange={(event) => inputChangedHandler(event, "Name")}
           onSave={() =>
-            props.onSaveChanges(props.cards, props.id, cardTempState)
+            dispatch(actions.saveChanges(cards, props.id, cardTempState))
           }
-          onCancel={() => props.onCancelChanges(props.cards, props.id)}
+          onCancel={() => dispatch(actions.cancelChanges(cards, props.id))}
         />
         <CardBody
           editMode={props.editMode}
@@ -55,21 +61,4 @@ const card = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    cards: state.cards,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onSaveChanges: (cards, id, updatedTempCard) =>
-      dispatch(actions.saveChanges(cards, id, updatedTempCard)),
-    onCancelChanges: (cards, id) => dispatch(actions.cancelChanges(cards, id)),
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withLoadingDelay(card, "card-size"));
+export default withLoadingDelay(card, "card-size");

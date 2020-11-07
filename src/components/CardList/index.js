@@ -11,7 +11,6 @@ const cardList = (props) => {
         id={card.Number}
         editMode={card.isEditMode}
         isOnlyView={props.isOnlyView}
-        history={props.history}
       />
     );
   });

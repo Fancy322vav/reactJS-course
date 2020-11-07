@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import Card from "../index";
-import * as actions from "../../../redux/actions/actions";
+import Card from "../Card";
+import { useHistory } from "react-router-dom";
 
 const cardId = (props) => {
   const [id, setId] = useState("");
 
+  const history = useHistory();
+
   useEffect(() => {
-    props.onInitCards();
-    setId(props.history.location.pathname.split(":")[1]);
+    setId(history.location.pathname.split(":")[1]);
   }, []);
 
-  const card = props.cards.filter((card) => card.Number === id)[0];
+  const card = props.cards.find((card) => card.Number === id);
   let cardView = <h1 style={{ textAlign: "center" }}>No such a card</h1>;
 
   if (card) {
@@ -34,10 +35,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onInitCards: () => dispatch(actions.initCards()),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(cardId);
+export default connect(mapStateToProps)(cardId);
