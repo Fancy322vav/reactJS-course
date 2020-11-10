@@ -33,7 +33,9 @@ const cardHeader = (props) => {
             id="check"
             type="checkbox"
             checked={props.checked}
-            onClick={() => dispatch(actions.editModeEnabled(cards, props.id))}
+            onClick={() =>
+              dispatch(actions.cardCheckedHandler(cards, props.id))
+            }
           />
           {pencil}
         </div>

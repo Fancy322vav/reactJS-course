@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import CardHeader from "./CardHeader";
 import CardBody from "./CardBody";
 import withLoadingDelay from "../../hoc/withLoadingDelay";
 import { useSelector, useDispatch } from "react-redux";
 import * as actions from "../../redux/actions/actions";
 import "./index.css";
-import { useHistory } from "react-router-dom";
 
 const card = (props) => {
   const [cardTempState, setCardTempState] = useState({});
@@ -26,15 +26,15 @@ const card = (props) => {
   };
 
   const redirectToCardIdPage = () => {
-    if (!props.editMode && !history.location.pathname.includes("/card/:")) {
-      history.push("/card/:" + props.id);
-    }
+    history.push("/card/:" + props.id);
   };
 
   return (
     <React.Fragment>
       <div
-        onDoubleClick={redirectToCardIdPage}
+        onDoubleClick={
+          !props.editMode && props.isPartOfList ? redirectToCardIdPage : null
+        }
         className={props.card.isChecked ? "card-checked" : "card"}
       >
         <CardHeader

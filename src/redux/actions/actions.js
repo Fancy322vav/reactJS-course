@@ -21,6 +21,7 @@ export const initCards = () => {
           return { ...card, isChecked: false, isEditMode: false };
         });
         dispatch(setCards(cards));
+        console.log("initCards");
       })
       .catch((error) => console.log(error));
   };
@@ -37,6 +38,7 @@ export const cardCheckedHandler = (cards, id) => {
     isChecked: !updatedCards[cardIndex].isChecked,
   };
   updatedCards[cardIndex] = updatedCard;
+  console.log(actionTypes.CARD_CHECKED_HANDLER, cards, id);
   return {
     type: actionTypes.CARD_CHECKED_HANDLER,
     cards: updatedCards,
@@ -55,6 +57,7 @@ export const editModeEnabled = (cards, id) => {
     isEditMode: true,
   };
   updatedCards[cardIndex] = updatedCard;
+  console.log(actionTypes.EDIT_MODE_ENABLED, cards, id);
   return {
     type: actionTypes.EDIT_MODE_ENABLED,
     cards: updatedCards,
@@ -72,6 +75,7 @@ export const saveChanges = (cards, id, updatedTempCard) => {
     isEditMode: false,
   };
   updatedCards[cardIndex] = updatedCard;
+  console.log(actionTypes.SAVE_CHANGES, cards, id, updatedTempCard);
   return {
     type: actionTypes.SAVE_CHANGES,
     updatedCards: updatedCards,
@@ -86,6 +90,7 @@ export const cancelChanges = (cards, id) => {
   const updatedCard = updatedCards[cardIndex];
   updatedCard.isEditMode = false;
   updatedCards[cardIndex] = updatedCard;
+  console.log(actionTypes.CANCEL_CHANGES, cards, id);
   return {
     type: actionTypes.CANCEL_CHANGES,
     updatedCards: updatedCards,
@@ -94,6 +99,7 @@ export const cancelChanges = (cards, id) => {
 
 export const deleteCardsHandler = (cards) => {
   const updatedCards = [...cards].filter((card) => !card.isChecked);
+  console.log(actionTypes.DELETE_CARDS_HANDLER, cards);
   return {
     type: actionTypes.DELETE_CARDS_HANDLER,
     updatedCards: updatedCards,
@@ -103,6 +109,7 @@ export const deleteCardsHandler = (cards) => {
 export const addCardHandler = (cards, newCard) => {
   const card = { ...newCard };
   card.Number = uuidv4();
+  console.log(actionTypes.ADD_CARD_HANDLER, cards, newCard);
   return {
     type: actionTypes.ADD_CARD_HANDLER,
     updatedCards: [...cards, card],
