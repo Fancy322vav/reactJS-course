@@ -1,11 +1,13 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect } from "react";
 import { BsPencil, BsCheck, BsX } from "react-icons/bs";
 import PropTypes from "prop-types";
-import { CardContext } from "../../../context/CardContext";
+import { useSelector, useDispatch } from "react-redux";
+import * as actions from "../../../redux/actions/actions";
 import "./index.css";
 
 const cardHeader = (props) => {
-  const { cardCheckedHandler, editModeEnabled } = useContext(CardContext);
+  const dispatch = useDispatch();
+  const cards = useSelector((state) => state.cards);
 
   useEffect(() => {
     props.onCancel();
@@ -14,7 +16,10 @@ const cardHeader = (props) => {
   let pencil = null;
   if (!props.view) {
     pencil = (
-      <BsPencil className="right" onClick={() => editModeEnabled(props.id)} />
+      <BsPencil
+        className="right"
+        onClick={() => dispatch(actions.editModeEnabled(cards, props.id))}
+      />
     );
   }
 
@@ -27,8 +32,8 @@ const cardHeader = (props) => {
             className="right"
             id="check"
             type="checkbox"
-            onChange={() => cardCheckedHandler(props.id)}
             checked={props.checked}
+            onClick={() => dispatch(actions.editModeEnabled(cards, props.id))}
           />
           {pencil}
         </div>

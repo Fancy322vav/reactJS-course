@@ -1,26 +1,37 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "../Header";
 import { Switch, Route } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import SignIn from "../../containers/SignInData";
 import App from "../../containers/App";
-import CardContextProvider from "../../context/CardContext";
+import CardId from "../CardId";
+import * as actions from "../../redux/actions/actions";
+
+let id = null;
 
 const layout = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(actions.initCards());
+  }, []);
+
   return (
-    <CardContextProvider>
-      <div>
-        <Header />
+    <div>
+      <Header />
+      <Switch>
         <Switch>
-          <Route path="/" exact component={SignIn} />
-          <Route path="/cards" component={App} />
+          <Route path="/" exact component={App} />
+          <Route path="/signin" component={SignIn} />
+          <Route path={"/card/:" + id} component={CardId} />
           <Route
             render={() => (
               <h1 style={{ textAlign: "center" }}>Page not found</h1>
             )}
           />
         </Switch>
-      </div>
-    </CardContextProvider>
+      </Switch>
+    </div>
   );
 };
 
