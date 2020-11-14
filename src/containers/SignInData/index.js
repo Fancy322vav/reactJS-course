@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import * as actions from "../../redux/actions/actions";
 import Input from "../../components/UI/Input";
 import "./index.css";
 
@@ -42,7 +44,7 @@ class SignIn extends Component {
 
   checkValidity = (value, rules) => {
     let isValid = true;
-    const reg = /^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/;
+    const reg = /^([a-zA-Z0-9_-]+\.)*[a-zA-Z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/;
 
     if (rules.required) {
       isValid = value.trim("") !== "" && isValid;
@@ -80,6 +82,14 @@ class SignIn extends Component {
     this.setState({ signInForm: updatedSignInForm, formIsValid: formIsValid });
   };
 
+  signIn = () => {
+    this.props.onSignInUser(
+      this.state.signInForm.name.value,
+      this.state.signInForm.password.value
+    );
+    this.props.history.push("/");
+  };
+
   render() {
     let formElementsArray = [];
     for (let key in this.state.signInForm) {
@@ -111,6 +121,7 @@ class SignIn extends Component {
               style={{ marginTop: "10px" }}
               type="button"
               className="btn btn-success"
+              onClick={this.signIn}
             >
               Войти
             </button>
@@ -121,4 +132,17 @@ class SignIn extends Component {
   }
 }
 
-export default SignIn;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSignInUser: (email, password) =>
+      dispatch(actions.signInUser(email, password)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

@@ -108,3 +108,30 @@ export const addCardHandler = (cards, newCard) => {
     updatedCards: [...cards, card],
   };
 };
+
+export const signInUser = (email, password) => {
+  const newUser = {
+    email,
+    password,
+  };
+  localStorage.setItem("user", JSON.stringify(newUser));
+  return {
+    type: actionTypes.SIGN_IN_USER,
+    user: localStorage.getItem("user"),
+  };
+};
+
+export const logoutUser = () => {
+  localStorage.removeItem("user");
+  return {
+    type: actionTypes.LOGOUT_USER,
+    user: null,
+  };
+};
+
+export const viewModeToggle = (viewMode) => {
+  return {
+    type: actionTypes.VIEW_MODE_TOGGLE,
+    isOnlyViewMode: !viewMode,
+  };
+};

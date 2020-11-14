@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import styled from "styled-components";
 import "./App.css";
 import { connect } from "react-redux";
 import CardList from "../components/CardList";
@@ -9,13 +8,8 @@ import HeaderButtons from "../components/Header/HeaderButtons";
 import CardsCounter from "../components/UI/CardsCounter";
 import * as actions from "../redux/actions/actions";
 
-const StyledCheckbox = styled.input`
-  cursor: pointer;
-`;
-
 class App extends Component {
   state = {
-    isOnlyViewMode: false,
     showAddingCard: false,
   };
 
@@ -52,16 +46,7 @@ class App extends Component {
       <div>
         <CardsCounter cards={this.props.cards} />
         <div className="container">
-          <div className="view-mode">
-            <p>Только просмотр</p>
-            <StyledCheckbox
-              type="checkbox"
-              onChange={this.onlyViewModeToggle}
-            />
-          </div>
           <HeaderButtons
-            isOnlyView={this.state.isOnlyViewMode}
-            viewModeToggle={this.state.onlyViewModeToggle}
             onShow={this.showAddingCardHandler}
             onDeleteCardsHandler={() =>
               this.props.onDeleteCardsHandler(this.props.cards)
@@ -69,10 +54,7 @@ class App extends Component {
           />
         </div>
         {newCard}
-        <CardList
-          isOnlyView={this.state.isOnlyViewMode}
-          cards={this.props.cards}
-        />
+        <CardList cards={this.props.cards} />
       </div>
     );
   }
