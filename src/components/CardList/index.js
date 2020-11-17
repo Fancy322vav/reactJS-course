@@ -10,7 +10,6 @@ const cardList = (props) => {
         card={card}
         id={card.Number}
         editMode={card.isEditMode}
-        isOnlyView={props.isOnlyView}
         isPartOfList
       />
     );

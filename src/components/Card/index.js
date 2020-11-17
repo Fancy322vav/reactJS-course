@@ -43,7 +43,6 @@ const card = (props) => {
           checked={props.isChecked}
           cardHead={props.card.Name}
           tempHead={cardTempState.Name}
-          view={props.isOnlyView}
           onChange={(event) => inputChangedHandler(event, "Name")}
           onSave={() =>
             dispatch(actions.saveChanges(cards, props.id, cardTempState))

@@ -8,13 +8,14 @@ import "./index.css";
 const cardHeader = (props) => {
   const dispatch = useDispatch();
   const cards = useSelector((state) => state.cards);
+  const view = useSelector((state) => state.isOnlyViewMode);
 
   useEffect(() => {
     props.onCancel();
-  }, [props.view]);
+  }, [view]);
 
   let pencil = null;
-  if (!props.view) {
+  if (!view) {
     pencil = (
       <BsPencil
         className="right"
