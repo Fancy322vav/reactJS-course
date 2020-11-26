@@ -114,11 +114,13 @@ export const signInUser = (email, password) => {
     email,
     password,
   };
-  localStorage.setItem("user", JSON.stringify(newUser));
-  return {
-    type: actionTypes.SIGN_IN_USER,
-    user: localStorage.getItem("user"),
-  };
+  if (!localStorage.getItem("user")) {
+    localStorage.setItem("user", JSON.stringify(newUser));
+    return {
+      type: actionTypes.SIGN_IN_USER,
+      user: localStorage.getItem("user"),
+    };
+  }
 };
 
 export const logoutUser = () => {

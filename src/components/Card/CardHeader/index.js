@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import * as actions from "../../../redux/actions/actions";
 import "./index.css";
 
-const cardHeader = (props) => {
+export const cardHeader = (props) => {
   const dispatch = useDispatch();
   const cards = useSelector((state) => state.cards);
   const view = useSelector((state) => state.isOnlyViewMode);

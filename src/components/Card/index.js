@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import * as actions from "../../redux/actions/actions";
 import "./index.css";
 
-const card = (props) => {
+export const card = (props) => {
   const [cardTempState, setCardTempState] = useState({});
 
   const history = useHistory();
