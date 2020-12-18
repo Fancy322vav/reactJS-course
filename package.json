@@ -14,7 +14,6 @@
     "enzyme-adapter-react-16": "^1.15.5",
     "enzyme-to-json": "^3.6.1",
     "jest": "^26.6.3",
-    "jsdom": "^16.4.0",
     "prop-types": "^15.7.2",
     "ramda": "^0.27.1",
     "react": "^16.13.1",
@@ -37,5 +36,9 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "coverage": "react-scripts test --coverage --watchAll=false"
+  },
+  "devDependencies": {
+    "jsdom": "16.4.0",
+    "jsdom-global": "3.0.2"
   }
 }

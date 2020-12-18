@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import * as actions from "../../redux/actions/actions";
 import "./index.css";
 
-export const card = (props) => {
+export const Card = (props) => {
   const [cardTempState, setCardTempState] = useState({});
 
   const history = useHistory();
@@ -60,4 +60,4 @@ export const card = (props) => {
   );
 };
 
-export default withLoadingDelay(card, "card-size");
+export default withLoadingDelay(Card, "card-size");
