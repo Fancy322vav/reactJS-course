@@ -1,66 +1,48 @@
 import "jsdom-global/register";
 
-import React from "react";
+import React, { useState as useStateMock } from "react";
 
 import { configure, shallow } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 
 import { Card } from "./index";
 import CardHeader from "./CardHeader";
-import CardBody from "./CardBody";
-import configureStore from "redux-mock-store";
 import * as reactRedux from "react-redux";
 
 configure({ adapter: new Adapter() });
 
-const props = {
-  id: "some_id",
-  editMode: true,
-  isChecked: false,
-};
+const mockDispatch = jest.fn();
+const mockHistoryPush = jest.fn();
+const useSelectorMock = jest.spyOn(reactRedux, "useSelector");
+jest.mock("react-redux", () => ({
+  useDispatch: () => mockDispatch,
+}));
+jest.mock("react", () => ({
+  useState: jest.fn(),
+}));
+jest.mock("react-router-dom", () => ({
+  useHistory: () => ({
+    push: mockHistoryPush,
+  }),
+}));
 
 describe("<Card />", () => {
-  let wrapper;
-  let instance;
-  const initialState = {
-    cards: [],
-    isOnlyViewMode: false,
-  };
-  jest.mock("react-router-dom", () => ({
-    useHistory: () => ({
-      push: jest.fn(),
-    }),
-  }));
-  const mockStore = configureStore();
-  const store = mockStore(initialState);
   const setState = jest.fn();
-  const useStateMock = jest.spyOn(React, "useState");
-  useStateMock.mockImplementation((init) => [init, setState]);
-  const useSelectorMock = jest.spyOn(reactRedux, "useSelector");
-  const useDispatchMock = jest.spyOn(reactRedux, "useDispatch");
 
   beforeEach(() => {
-    wrapper = shallow(<Card {...props} />);
-    instance = wrapper.instance();
+    wrapper = shallow(<Card />);
+    useStateMock.mockImplementation((init) => [init, setState]);
   });
 
-  afterEach(() => {
-    jest.clearAllMocks();
+  it("should render", () => {
+    expect(setState).toHaveBeenCalledTimes(1);
   });
 
-  it("should have one wrapper div", () => {
-    expect(wrapper.find("div")).toHaveLength(1);
+  it("should render component", () => {
+    expect(CardHeader).toBeTruthy();
   });
 
-  it("should have CardHeader", () => {
-    expect(wrapper.find(CardHeader)).toBeTruthy();
-  });
-
-  it("should have CardBody", () => {
-    expect(wrapper.find(CardBody)).toBeTruthy();
-  });
-
-  it("should have editMode prop", () => {
-    expect(wrapper.children(0).props("editMode")).toBeTruthy();
+  afterAll(() => {
+    jest.restoreAllMocks();
   });
 });
